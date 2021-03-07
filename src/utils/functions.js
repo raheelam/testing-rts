@@ -6,11 +6,11 @@
 
 //helper function for putting values to boxes in board
 //s == starting, e == end
-export const setBox = (s, e)=>{
+export const setBox = (v, s, e)=>{
     //add extra variable x to choose between X and O
-    if(s <= board.length && (e?e <= board.length:true)){
+    if((v === "X" || v === "O") && s <= board.length && (e?e <= board.length:true)){
         for(let i=s; i<= (e?e:s) ; i++){
-            board[i-1].value = "X";
+            board[i-1].value = v;
         }
         return true;
     }  
