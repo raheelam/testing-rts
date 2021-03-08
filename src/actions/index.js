@@ -30,3 +30,24 @@ export const resetMatches=()=>{
         type: "RESET_MATCHES"
     }
 }
+
+export const setRound=(round)=>{
+    return{
+        type: "SET_ROUND",
+        payload: round
+    }
+}
+
+export const setScore=(score)=>{
+    return{
+        type: "SET_SCORE",
+        payload: score
+    }
+}
+
+export const addScore=()=>{
+    return{
+        type: "ADD_SCORE"
+    }
+}
+

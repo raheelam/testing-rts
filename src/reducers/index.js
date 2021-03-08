@@ -21,10 +21,16 @@ const boardReducer = (state=[...board], action) =>{
     }
 }
 
-const userReducer = (state="", action) =>{
+const userReducer = (state={user:"",round:1, score:0}, action) =>{
     switch(action.type){
         case "SET_USER":
-            return action.payload;
+            return {...state, user: action.payload};
+        case "SET_SCORE":
+            return {...state, score: action.payload};
+         case "SET_ROUND":
+             return {...state, round: action.payload};
+        case "ADD_SCORE":
+            return {...state, score: state.score + 1};
         default:
             return state;
     }

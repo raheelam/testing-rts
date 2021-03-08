@@ -22,7 +22,7 @@ const Button = ({boxId, boxValue, setBox, user, matchesColor, disabled}) =>{
 
 const mapStateToProps = (state) =>{
     return{
-        user: state.user
+        user: state.user.user
     }
 }
 
