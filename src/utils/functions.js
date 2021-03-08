@@ -1,16 +1,22 @@
- export const board = [];
+
+
+  const temp = [];
 //initializes board with 9 empty boxes
-    for(let i = 1; i<=9; i++){
-        board.push({value: ""});
+   for(let i = 1; i<=9; i++){
+        temp.push({value: ""});
      }
+
+     export const board = temp;
 
 //helper function for putting values to boxes in board
 //s == starting, e == end
 export const setBox = (v, s, e)=>{
-    //add extra variable x to choose between X and O
+    //uses e only for testing shortcut
     if((v === "X" || v === "O") && s <= board.length && (e?e <= board.length:true)){
         for(let i=s; i<= (e?e:s) ; i++){
-            board[i-1].value = v;
+            if(board[i-1].value === ""){
+               board[i-1].value = v;
+            } 
         }
         return true;
     }  
@@ -41,13 +47,13 @@ export const aScore = (pos1, pos2, pos3) =>{
 }
 
 export const tictactoe = (id) =>{
-    if(board2[id-1].value !== ""){
+    if(board[id-1].value !== ""){
         if( aScore(1,4,7) || aScore(2,5,8) || aScore(3,6,9)){
-           console.log('yass you have won 147');
+           console.log('yass you have won vertically');
         }else if( aScore(1,2,3) || aScore(4,5,6) || aScore(7,8,9)){
-            console.log('yass you have won 123');
+            console.log('yass you have won horizontally');
         }else if( aScore(1,5,9) || aScore(7,5,3) ){
-            console.log('yass you have won 159');
+            console.log('yass you have won diagonally');
         }
     }
 
