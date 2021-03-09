@@ -51,3 +51,9 @@ export const addScore=()=>{
     }
 }
 
+export const setCurrentPlayer=(currentPlayer)=>{
+    return{
+        type: "CURRENT_PLAYER",
+        payload: currentPlayer
+    }
+}

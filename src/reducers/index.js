@@ -47,8 +47,16 @@ const matchesReducer = (state=[],action) =>{
     }
 }
 
+const currentPlayerReducer = (state="", action) =>{
+    if(action.type === "CURRENT_PLAYER"){
+        return action.payload;
+    }
+    return state;
+}
+
 export default combineReducers({
       board: boardReducer,
       user: userReducer,
-      matches: matchesReducer
+      matches: matchesReducer,
+      currentPlayer: currentPlayerReducer
 });

@@ -3,13 +3,17 @@ import React, { useCallback, useEffect} from 'react';
 import Button from '../Button/Button';
 import {connect} from 'react-redux';
 
-import {setMatches, addScore} from '../../actions';
+import {setMatches, addScore,setBox, setCurrentPlayer } from '../../actions';
+import { } from '../../utils/functions';
 
 const scoreCombinations = [
     [1,4,7],[2,5,8],[3,6,9],[1,2,3],[4,5,6],[7,8,9],[1,5,9],[7,5,3]
 ];
-const Board = ({board, matches, setMatches, user, addScore}) =>{
+const Board = ({board, setBox, matches,setCurrentPlayer, currentPlayer, setMatches, user, addScore}) =>{
+   console.log(currentPlayer);
+   
     
+
 //FOR CHECKING if there is a score
 const aScore = useCallback((pos1, pos2, pos3) =>{
     if(board[pos1-1].value === board[pos2-1].value && board[pos2-1].value === board[pos3-1].value && (board[pos1-1].value !== "")){
@@ -21,16 +25,56 @@ const aScore = useCallback((pos1, pos2, pos3) =>{
     }
 },[board, setMatches, addScore]);
 
+
+
 useEffect(()=>{
+    
     for(let combo of scoreCombinations){
         if(aScore(combo[0],combo[1],combo[2])){
             break;
         }
     }
+   
 },[aScore]);
 
+const generateGame = () =>{
+    let temp = [];
+    console.log(board);
+    console.log("here i am");
+    for(let i=0; i<board.length; i++){
+        if(board[i].value === ""){
+         temp.push(i+1);
+        }
+    }
+    console.log(temp);
+    let rand = Math.floor(Math.random() * temp.length);
+    let choos = temp[rand];
+    return choos;
+}
+
+const computerTurn =() =>{
+    if(currentPlayer !== user && user !== "" && matches.length <= 0){
+        setBox(currentPlayer, generateGame()); 
+        setCurrentPlayer(user);
+    }
+}
+useEffect(()=>{  
+        computerTurn();
+});
+
+
+
+
+
+
    const disabled = () =>{
-       if(matches.length > 0|| user===""){
+       if(matches.length > 0|| user==="" || user !== currentPlayer){
+           return true;
+       }
+       return false;
+   }
+   const ticked = (i) => {
+       if(board[i].value !== ""){
            return true;
        }
        return false;
@@ -44,7 +88,7 @@ useEffect(()=>{
    //GET BOXES TO DISPLAY ON BOARD
    const getBoxes = () =>{
       
-      return board.map((box,index) => <Button key={index+1} boxId={index + 1} boxValue={box.value} matchesColor={matched(index+1)} disabled={disabled()} />);
+      return board.map((box,index) => <Button key={index+1} boxId={index + 1} boxValue={box.value} matchesColor={matched(index+1)} disabled={disabled() || ticked(index)} />);
     }
 
 
@@ -59,9 +103,10 @@ const mapStateToProps = (state) =>{
     return{
         board: state.board,
         matches: state.matches,
-        user: state.user.user
+        user: state.user.user,
+        currentPlayer: state.currentPlayer
     
     }
 }
 
-export default connect(mapStateToProps,{setMatches,addScore})(Board);
+export default connect(mapStateToProps,{setMatches,addScore, setCurrentPlayer, setBox})(Board);

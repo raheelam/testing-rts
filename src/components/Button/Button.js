@@ -1,15 +1,20 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {setBox} from '../../actions';
+import {setBox, setCurrentPlayer} from '../../actions';
 
 //import {tictactoe, aScore } from '../../utils/functions';
 
-const Button = ({boxId, boxValue, setBox, user, matchesColor, disabled}) =>{
-
+const Button = ({boxId,setCurrentPlayer, boxValue, setBox, user, matchesColor, disabled}) =>{
+    
     const btnClasses =   "border-2 text-white " +  matchesColor;
     const onClickHandler = () =>{
         if(!disabled){
             setBox(user,boxId); 
+            if(user === "X"){
+                setCurrentPlayer("Y");
+               }else{
+                setCurrentPlayer("X");
+               } 
         }
         
     }
@@ -26,4 +31,4 @@ const mapStateToProps = (state) =>{
     }
 }
 
-export default connect(mapStateToProps,{setBox})(Button);
+export default connect(mapStateToProps,{setBox, setCurrentPlayer})(Button);

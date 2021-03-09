@@ -1,16 +1,16 @@
 import React from 'react';
 import Board from './Board/Board';
 import {connect} from 'react-redux';
-import {setUser, resetBoard, resetMatches, setRound, setScore} from '../actions';
+import {setUser, resetBoard, resetMatches, setRound, setScore, setCurrentPlayer} from '../actions';
 
-const App = ({setUser, matches, user, resetBoard, resetMatches, setScore, score, round, setRound}) =>{
+const App = ({setUser, matches, user, resetBoard, resetMatches,setCurrentPlayer, setScore, score, round, setRound}) =>{
   
     return(
         <div className="container w-screen mx-auto h-screen">
         { !user &&
             <div>
                 <h1>Welcome select what you want to play as</h1>
-                <button onClick={()=>setUser("X")}>X</button> OR <button onClick={()=>setUser("Y")}>Y</button>
+                <button onClick={()=>{setUser("X"); setCurrentPlayer("X")}}>X</button> OR <button onClick={()=>{setUser("Y");setCurrentPlayer("Y")}}>Y</button>
             </div>
         }
         { user &&
@@ -63,4 +63,4 @@ const mapStateToProps = (state) =>{
     }   
 }
 
-export default connect(mapStateToProps, {setRound, setScore, setUser,resetMatches, resetBoard})(App);
+export default connect(mapStateToProps, {setCurrentPlayer,setRound, setScore, setUser,resetMatches, resetBoard})(App);
