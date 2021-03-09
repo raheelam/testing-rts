@@ -1,9 +1,10 @@
 import React from 'react';
 import Board from './Board/Board';
 import {connect} from 'react-redux';
-import {setUser, resetBoard, resetMatches, setRound, setScore, setCurrentPlayer} from '../actions';
+import {setUser, resetBoard, resetMatches, setRound, setScore, setCurrentPlayer, setWinner} from '../actions';
 
-const App = ({setUser, matches, user, resetBoard, resetMatches,setCurrentPlayer, setScore, score, round, setRound}) =>{
+
+const App = ({setUser,setWinner, user, resetBoard, resetMatches,setCurrentPlayer, setScore, score, round, setRound}) =>{
   
     return(
         <div className="container w-screen mx-auto h-screen">
@@ -23,6 +24,7 @@ const App = ({setUser, matches, user, resetBoard, resetMatches,setCurrentPlayer,
                         setUser(""); 
                         resetBoard(); 
                         resetMatches();
+                        setWinner("");
                         setScore(0);
                         setRound(1);
                     }}>
@@ -31,22 +33,7 @@ const App = ({setUser, matches, user, resetBoard, resetMatches,setCurrentPlayer,
                 
             </div>
         }
-        {
-                    matches.length > 0 &&
-                    <div className="mx-auto w-2/4 text-center">
-                    <p className="bg-green-200">User Won!</p>
-                    <button className=" bg-gray-100" onClick={
-                    ()=>{ 
-                        resetBoard(); 
-                        resetMatches();
-                        setRound(round + 1);
-                    }}>
-                     &gt; &gt;Go to Next Round 
-                    </button>
-                    </div>
-                    
-                    
-                }
+      
             <Board />
 
         </div>
@@ -59,8 +46,9 @@ const mapStateToProps = (state) =>{
         user: state.user.user,
         score: state.user.score,
         round: state.user.round,
-        matches: state.matches
+        matches: state.matches,
+        
     }   
 }
 
-export default connect(mapStateToProps, {setCurrentPlayer,setRound, setScore, setUser,resetMatches, resetBoard})(App);
+export default connect(mapStateToProps, {setWinner, setCurrentPlayer,setRound, setScore, setUser,resetMatches, resetBoard})(App);

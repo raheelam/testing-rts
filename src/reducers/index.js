@@ -30,7 +30,7 @@ const userReducer = (state={user:"",round:1, score:0}, action) =>{
          case "SET_ROUND":
              return {...state, round: action.payload};
         case "ADD_SCORE":
-            return {...state, score: state.score + 1};
+            return {...state, score: (state.score + 1)};
         default:
             return state;
     }
@@ -54,9 +54,17 @@ const currentPlayerReducer = (state="", action) =>{
     return state;
 }
 
+const winnerReducer = (state="", action) =>{
+    if(action.type === "SET_WINNER"){
+        return action.payload;
+    }
+    return state;
+}
+
 export default combineReducers({
       board: boardReducer,
       user: userReducer,
       matches: matchesReducer,
-      currentPlayer: currentPlayerReducer
+      currentPlayer: currentPlayerReducer,
+      winner: winnerReducer
 });

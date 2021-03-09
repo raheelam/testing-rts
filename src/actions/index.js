@@ -57,3 +57,10 @@ export const setCurrentPlayer=(currentPlayer)=>{
         payload: currentPlayer
     }
 }
+
+export const setWinner=(winner)=>{
+    return{
+        type: "SET_WINNER",
+        payload: winner
+    }
+}
