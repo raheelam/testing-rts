@@ -118,7 +118,7 @@ useEffect(()=>{
             
             
     }
-        <div className="grid grid-cols-3 w-1/4 h-2/4 border-2 bg-black m-auto my-10" title="board"> 
+        <div className="grid grid-cols-3 w-2/4 sm:w-1/4 h-2/4 border-2 bg-black m-auto my-10" title="board"> 
             {getBoxes()}
         </div>  
     </>
